@@ -44,10 +44,6 @@ char* getStringFromUser()
 	return str;
 }
 
-void print()
-{
-	cout << "hello" << endl;
-}
 
 char* myrealloc(char* str, int size, int newSize)
 {
