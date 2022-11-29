@@ -30,6 +30,7 @@ public:
 	void addFriend(Friend& newFriend);
 	void removeFriend(int ind);
 	void showFans();
+	void addStatus(char* status) { board.addStatus(status); }
 
 	~FanPage()
 	{
