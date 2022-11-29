@@ -6,8 +6,6 @@ char* getStringFromUser();
 char* myrealloc(char* str, int size, int newSize);
 int main()
 {
-	char* c = getStringFromUser();
-	cout << "hi " <<c<<endl;
 	return 0;
 }
 
