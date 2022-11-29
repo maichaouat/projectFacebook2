@@ -25,11 +25,13 @@ public:
 	void showFanPagesNameOfFriend(Friend& friend1);
 	void addFriend(Friend& newFriend);
 	void addFanPage(FanPage& newPage);
-
+	void showAllFriends() const;
+	void showAllFanPages() const;
 	void freeFriends();
 	void freeFanPages();
 	void printMenu() const;
-	void start();
+	void start(Friend& friend1);
+
 
 	~Facebook() { freeFriends(); freeFanPages(); }
 

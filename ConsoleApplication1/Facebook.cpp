@@ -1,5 +1,8 @@
 #include "Facebook.h"
 #include "GlobalFun.h"
+
+#define MAX_LEN 20
+
 //connect with two friends
 void Facebook::connect(Friend& f1, Friend& f2)
 {
@@ -71,7 +74,7 @@ void Facebook::printMenu() const
 	cout << "12) exit" << endl;
 }
 
-void Facebook::start()
+void Facebook::start(Friend& friend1)
 {
 	int input = 1;
 	
@@ -80,8 +83,83 @@ void Facebook::start()
 		printMenu();
 		cin >> input;
 
-		
+		//add new friend to facebook
+		if (input == 1)
+		{
+			int day, month, year;
+			char name[MAX_LEN];
+			
+			cout << "Please enter your name " << endl;
+			cin >> name;
+			cout << "Please enter date of birth. format:DD MM YYYY" << endl;
+			cin >> day >> month >> year; 
+
+			Friend* newFriend = new Friend(name, day, year, month);
+			addFriend(*newFriend);
+
+		} 
+		//add new fanPage to facebook
+		else if (input == 2)
+		{
+			char name[20];
+			cout << "Please enter fan page name " << endl;
+			cin >> name;
+			FanPage* newFanPage = new FanPage(name);
+			addFanPage(*newFanPage);
+		}
+		else if (input == 3)
+		{
+			char answer;
+			char text[256];
+			int option;
+			cout << "Please enter your status" << endl;
+			cin >> text;
+			
+
+			cout << "Do you want to add status to a friend? Y/N (if choose N we will add to fan page)" << endl;
+			answer = getchar();
+			if (answer == 'Y')
+			{
+				cout << "Please choose index of the friend you want to add status" << endl;
+				showAllFriends();
+				cin >> option;
+				friends[option - 1]->addStatus(text);
+
+			}
+			else
+			{
+				cout << "Please choose index of the fan page you want to add status" << endl;
+				showAllFanPages();
+				cin >> option;
+				fanPages[option - 1]->addStatus(text);
+			}
+			
+		}
 			
 
 	}
+}
+
+//print all friends in facebook
+void Facebook::showAllFriends() const
+{
+	
+	for (int i = 0; i < numOfFriends; i++)
+	{
+		cout << "friend num #" << i+1 << " ";
+		friends[i]->show();
+	}
+		
+}
+
+//print all fan pages in facebook
+void Facebook::showAllFanPages() const
+{
+
+	for (int i = 0; i < numOfFanPages; i++)
+	{
+		cout << "fan page num #" << i + 1 << " ";
+		fanPages[i]->showFans();
+	}
+
 }

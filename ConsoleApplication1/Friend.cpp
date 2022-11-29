@@ -56,6 +56,8 @@ void Friend::showFanPagesNames()
 	}
 }
 
+
+
 //free name pointer, friends arr and fanpages arr
 Friend::~Friend()
 {
