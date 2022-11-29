@@ -20,3 +20,14 @@ void BoardMessage::addStatus(const Status& message)
 	messages[logSize] = message;
 	logSize++;
 }
+
+//show 10 recent status
+void BoardMessage::show10RecentStatus()
+{
+	for (int i = 0; i < 10 && i <logSize; i++)
+	{
+		messages[i].show();
+	}
+}
+
+
