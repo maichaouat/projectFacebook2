@@ -15,9 +15,9 @@ FanPage** myRealloc(FanPage** arr, int size, int newSize);
 
 int main() {
 	
-
-	
-
+	Facebook* network = new Facebook;
+	Friend f;
+	network->start(f);
 }
 
 Status* myRealloc(Status* arr, int size, int newSize) {

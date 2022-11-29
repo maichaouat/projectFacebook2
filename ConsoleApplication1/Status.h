@@ -17,7 +17,7 @@ private:
 	time_t time_posted;
 
 public:
-	Status() : text(nullptr) {} //time_posted is garbage
+	Status() : text(nullptr), time_posted(time(0)) {} 
 	Status(char* data) : text(_strdup(data)), time_posted(time(0)) {}
 	Status(const Status& s)
 	{

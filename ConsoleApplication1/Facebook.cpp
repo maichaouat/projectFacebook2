@@ -80,62 +80,28 @@ void Facebook::start(Friend& friend1)
 	
 	while (input != 12)
 	{
+		cout << endl;
 		printMenu();
 		cin >> input;
 
 		//add new friend to facebook
 		if (input == 1)
 		{
-			int day, month, year;
-			char name[MAX_LEN];
-			
-			cout << "Please enter your name " << endl;
-			cin >> name;
-			cout << "Please enter date of birth. format:DD MM YYYY" << endl;
-			cin >> day >> month >> year; 
-
-			Friend* newFriend = new Friend(name, day, year, month);
-			addFriend(*newFriend);
-
+			option1();
+			cout << "friend added succesfully" << endl;
 		} 
 		//add new fanPage to facebook
 		else if (input == 2)
 		{
-			char name[20];
-			cout << "Please enter fan page name " << endl;
-			cin >> name;
-			FanPage* newFanPage = new FanPage(name);
-			addFanPage(*newFanPage);
+			option2();
+			cout << "fan page add succesfully" << endl;
 		}
+		//add status to fan page or friend
 		else if (input == 3)
 		{
-			char answer;
-			char text[256];
-			int option;
-			cout << "Please enter your status" << endl;
-			cin >> text;
-			
-
-			cout << "Do you want to add status to a friend? Y/N (if choose N we will add to fan page)" << endl;
-			answer = getchar();
-			if (answer == 'Y')
-			{
-				cout << "Please choose index of the friend you want to add status" << endl;
-				showAllFriends();
-				cin >> option;
-				friends[option - 1]->addStatus(text);
-
-			}
-			else
-			{
-				cout << "Please choose index of the fan page you want to add status" << endl;
-				showAllFanPages();
-				cin >> option;
-				fanPages[option - 1]->addStatus(text);
-			}
-			
+			option3();
+			cout << "status add succesfully" << endl;
 		}
-			
 
 	}
 }
@@ -162,4 +128,62 @@ void Facebook::showAllFanPages() const
 		fanPages[i]->showFans();
 	}
 
+}
+
+//add new friend to facebook
+void Facebook::option1() 
+{
+	int day, month, year;
+	char name[MAX_LEN];
+
+	cout << "Please enter your name " << endl;
+	cin >> name;
+	cout << "Please enter date of birth. format:DD MM YYYY" << endl;
+	cin >> day >> month >> year;
+
+	Friend* newFriend = new Friend(name, day, year, month);
+	addFriend(*newFriend);
+}
+
+//add new fanPage to facebook
+void Facebook::option2() 
+{
+	char name[20];
+	cout << "Please enter fan page name " << endl;
+	cin >> name;
+	FanPage* newFanPage = new FanPage(name);
+	addFanPage(*newFanPage);
+}
+
+//add status to fan page or friend
+void Facebook::option3()
+{
+
+	char answer;
+	char text[256];
+	int option;
+	cout << "Please enter your status" << endl;
+	cin >> text;
+
+
+	cout << "Do you want to add status to a friend? Y/N (if choose N we will add to fan page)" << endl;
+	//answer = getchar();
+	cin >> answer;
+	if (answer == 'Y')
+	{
+		cout << "Please choose index of the friend you want to add status" << endl;
+		showAllFriends();
+		cin >> option;
+		if (option > 0 )
+			friends[option - 1]->addStatus(text);
+
+	}
+	else
+	{
+		cout << "Please choose index of the fan page you want to add status" << endl;
+		showAllFanPages();
+		cin >> option;
+		if (option >0)
+			fanPages[option - 1]->addStatus(text);
+	}
 }

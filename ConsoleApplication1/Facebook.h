@@ -32,8 +32,16 @@ public:
 	void printMenu() const;
 	void start(Friend& friend1);
 
+private:
+	void option1();
+	void option2();
+	void option3();
+	void option4();
+	void option5();
+	//until option 12
 
-	~Facebook() { freeFriends(); freeFanPages(); }
+
+	~Facebook() { if (friends != nullptr) { delete[] friends; } if (fanPages != nullptr) { delete[] fanPages; } }
 
 
 };
