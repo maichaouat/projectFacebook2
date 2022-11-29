@@ -36,14 +36,18 @@ char* getStringFromUser()
 		str = myrealloc(str, logSize, logSize + 1);
 
 	}
-	else if (logSize < phySize)
+
+Status* myRealloc(Status* arr, int size, int newSize) {
+
+	Status* tmp = new Status[newSize];
+
+	for (int i = 0; i < size; i++)
 	{
 		str = myrealloc(str, phySize, logSize + 1);
 	}
 	str[logSize] = '\0';
 	return str;
 }
-
 
 char* myrealloc(char* str, int size, int newSize)
 {
