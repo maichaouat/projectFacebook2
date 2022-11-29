@@ -6,7 +6,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 using namespace std;
-
+#pragma warning(disable: 4996)
 //This h file does not have source file beacuse all funcs are short and described in here
 
 

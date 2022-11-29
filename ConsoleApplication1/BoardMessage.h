@@ -17,7 +17,7 @@ public:
 
 	void addStatus(const Status& message);
 	void printAllStatus();
-
+	void show10RecentStatus();
 
 	~BoardMessage() { delete[] messages; }
 };
