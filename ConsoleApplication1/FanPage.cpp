@@ -3,7 +3,7 @@
 Friend** myRealloc(Friend** arr, int size, int newSize);
 
 //return fan page name
-char* FanPage::getName() { return name; }
+const char* FanPage::getName() { return name; }
 
 //Return message board
 BoardMessage FanPage::getMessageBoard() { return board; }
@@ -37,6 +37,7 @@ void FanPage::removeFriend(int ind)
 	fansSize--;
 	delete[] fans;
 	fans = tmp;
+
 }
 
 //Print all fans of fan page
@@ -49,4 +50,10 @@ void FanPage::showFans()
 		fans[i]->show();
 		cout << endl;
 	}
+}
+
+//This function Print's all the statuses of the fan page
+void FanPage::showAllStatuses()
+{
+	board.printAllStatus();
 }

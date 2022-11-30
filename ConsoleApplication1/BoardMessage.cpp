@@ -11,20 +11,21 @@ void BoardMessage::printAllStatus()
 }
 
 //This function add new given status to the status array in board message
-void BoardMessage::addStatus(const Status& message)
+void BoardMessage::addStatus(const char* message)
 {
+	Status newStatus(message);
 	if (logSize == phySize) {
 		phySize *= 2;
 		messages = myRealloc(messages, logSize, phySize);
 	}
-	messages[logSize] = message;
+	messages[logSize] = newStatus;
 	logSize++;
 }
 
 //show 10 recent status
 void BoardMessage::show10RecentStatus()
 {
-	for (int i = 0; i < 10 && i <logSize; i++)
+	for (int i = 0; i < RECENT && i <logSize; i++)
 	{
 		messages[i].show();
 	}
