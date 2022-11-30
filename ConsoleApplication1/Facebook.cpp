@@ -1,14 +1,16 @@
 #include "Facebook.h"
 #include "GlobalFun.h"
-
+#include <string.h>
 #define MAX_LEN 20
 
 //connect with two friends
 void Facebook::connect(Friend& f1, Friend& f2)
 {
-	f1.addFriend(f2);
-	f2.addFriend(f1);
+
+		f1.addFriend(f2);
+		f2.addFriend(f1);
 }
+
 
 //add friend to fanPage
 void Facebook::addFriendToFanPage(Friend& friend1, FanPage& page)
@@ -102,6 +104,39 @@ void Facebook::start(Friend& friend1)
 			option3();
 			cout << "status add succesfully" << endl;
 		}
+		else if (input == 4)
+		{
+			option4();
+		}
+		else if (input == 5)
+		{
+			option5();
+		}
+		else if (input == 6)
+		{
+			//to do - add is friend or fan page connected to fan page
+			option6();
+		}
+		else if (input == 7)
+		{
+			option7();
+		}
+		else if (input == 8)
+		{
+			option8();
+		}
+		else if (input == 9)
+		{
+			option9();
+		}
+		else if (input == 10)
+		{
+			option10();
+		}
+		else if (input == 11)
+		{
+			option11();
+		}
 
 	}
 }
@@ -125,8 +160,50 @@ void Facebook::showAllFanPages() const
 	for (int i = 0; i < numOfFanPages; i++)
 	{
 		cout << "fan page num #" << i + 1 << " ";
-		fanPages[i]->showFans();
+		cout<<fanPages[i]->getName()<<endl;
 	}
+
+}
+
+//connect fan page with friend
+void Facebook::connectFanPage(Friend& f1, FanPage& fanPage)
+{
+	f1.addFanPage(fanPage);
+	fanPage.addFriend(f1);
+}
+
+//inital first data for facebook
+void Facebook::initial()
+{
+	friends = new Friend*[3];
+	fanPages = new FanPage * [3];
+	friends[0] = new Friend("Mai Chaouat", 19, 8, 1998);
+	friends[1] = new Friend("Amit Naory", 20, 1, 1997);
+	friends[2] = new Friend("Ran Danker", 1, 1, 1980);
+
+	connect(*friends[0], *friends[2]);
+	connect(*friends[1], *friends[0]);
+
+	fanPages[0] = new FanPage("Please give us A");
+	fanPages[1] = new FanPage("We love Ran Danker");
+	fanPages[2] = new FanPage("Hapshuta");
+
+	numOfFriends = numOfFanPages = 3;
+
+	connectFanPage(*friends[0], *fanPages[0]);
+	connectFanPage(*friends[1], *fanPages[0]);
+	connectFanPage(*friends[0], *fanPages[2]);
+	connectFanPage(*friends[2], *fanPages[1]);
+	connectFanPage(*friends[2], *fanPages[2]);
+
+
+	friends[0]->addStatus("please give us good grade");
+	friends[1]->addStatus("we are good students");
+	friends[2]->addStatus("give them good graders");
+	friends[2]->addStatus("I love my new dress");
+
+	friends[0]->showFanPagesNames();
+	friends[0]->show10Status();
 
 }
 
@@ -167,23 +244,157 @@ void Facebook::option3()
 
 
 	cout << "Do you want to add status to a friend? Y/N (if choose N we will add to fan page)" << endl;
-	//answer = getchar();
 	cin >> answer;
 	if (answer == 'Y')
 	{
-		cout << "Please choose index of the friend you want to add status" << endl;
+		cout << "Please enter index of the friend you want to add status from the following friends" << endl;
 		showAllFriends();
 		cin >> option;
 		if (option > 0 )
 			friends[option - 1]->addStatus(text);
 
 	}
-	else
+	else //answer is N (add ststus to a fan page
 	{
-		cout << "Please choose index of the fan page you want to add status" << endl;
+		cout << "Please enter index of the fan page you want to add status from the following fan pages" << endl;
 		showAllFanPages();
 		cin >> option;
 		if (option >0)
 			fanPages[option - 1]->addStatus(text);
+	}
+}
+
+//Show all statuses of a friend or a fan page 
+void Facebook::option4()
+{
+	char answer;
+	int option;
+
+	cout << "Do you want to see all statuses of a friend? Y/N (if choose N we will show all statuses of a fan page)" << endl;
+	cin >> answer;
+	if (answer == 'Y')
+	{
+		cout << "Please enter index of the friend that you want to see his statuses from the following friends" << endl;
+		showAllFriends();
+		cin >> option;
+		if (option > 0)
+			friends[option - 1]->showMboard();
+	}
+	else //answer is N (show all statuses of a fan page
+	{
+		cout << "Please enter index of the fan page that you want to see it statuses from the following fan pages" << endl;
+		showAllFanPages();
+		cin >> option;
+		if (option > 0)
+			fanPages[option - 1]->showAllStatuses();
+	}
+}
+
+//show 10 recent statuses of all of friend's friends
+void Facebook::option5()
+{
+	int option;
+
+	cout << "Please enter index from the following friends list of the friend that you want to see the 10 recent ststuses of his friends" << endl;
+	showAllFriends();
+	cin >> option;
+	if (option > 0)
+		friends[option - 1]->showMyFriends10RecentStatuses();
+}
+
+//connect with two friends
+void Facebook::option6()
+{
+	int ind1, ind2;
+	cout << "Please choose 2 friends from the following friends list that you want to connect friends as friends" << endl;
+	showAllFriends();
+	cout << "#1 friend: ";
+	cin >> ind1;
+	cout << endl << "#2 friend: ";
+	cin >> ind2;
+	connect(*friends[ind1 - 1], *friends[ind2 - 1]);
+}
+
+//cancel friendship with two friends
+void Facebook::option7()
+{
+	int ind1, ind2;
+	cout << "Please choose friend from the following friends list that you want to remove connection to" << endl;
+	showAllFriends();
+	cout << "#1 friend: ";
+	cin >> ind1;
+	cout << "please choose friend you want to remove from " << friends[ind1 - 1]->getFriendName() <<" friends "<< endl;
+	friends[ind1 - 1]->showAllFriends();
+	cin >> ind2;
+	
+	friends[ind1 - 1]->removeFriend(ind2);
+	friends[ind2 - 1]->removeFriend(ind1);
+}
+
+//add fan to a page
+void Facebook::option8()
+{
+	int ind1, ind2;
+	cout << "Choose friend index " << endl;
+	showAllFriends();
+	cin >> ind1;
+
+	cout << "Choose fan page you want the friend to like" << endl;
+	showAllFanPages();
+	cin >> ind2;
+
+	friends[ind1 - 1]->addFanPage(*fanPages[ind2 - 1]);
+	fanPages[ind2 - 1]->addFriend(*friends[ind1 - 1]);
+}
+
+//remove fan from fan page
+void Facebook::option9()
+{
+	int ind1, ind2;
+	 
+	cout << "Please choose fan page index" << endl;
+	showAllFanPages();
+	cin >> ind1;
+
+	cout << "Please choose friend you want to remove from fans of " << fanPages[ind1 - 1]->getName() << " fan page" << endl;
+	fanPages[ind1 - 1]->showFans();
+	cin >> ind2;
+
+	fanPages[ind1 - 1]->addFriend(*friends[ind2 - 1]);
+	friends[ind2 - 1]->addFanPage(*fanPages[ind1 - 1]);
+
+
+}
+
+//show all friends of facebook and fan pages
+void Facebook::option10()
+{
+	cout << "All friends of facebook" << endl;
+	showAllFriends();
+	cout << "All fan pages of facebook" << endl;
+	showAllFanPages();
+}
+
+//show all friends of page or friend
+void Facebook::option11()
+{
+	int option;
+	char answer;
+	cout << "Do you want to add status to a friend? Y/N (if choose N we will add to fan page)" << endl;
+	cin >> answer;
+	if (answer == 'Y')
+	{
+		cout << "Please enter index of the friend you want to add status from the following friends" << endl;
+		showAllFriends();
+		cin >> option;
+		friends[option - 1]->showAllFriends();
+
+	}
+	else //answer is N (add ststus to a fan page
+	{
+		cout << "Please enter index of the fan page you want to add status from the following fan pages" << endl;
+		showAllFanPages();
+		cin >> option;
+		fanPages[option - 1]->showFans();
 	}
 }

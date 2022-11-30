@@ -18,11 +18,12 @@ private:
 
 public:
 	Status() : text(nullptr), time_posted(time(0)) {} 
-	Status(char* data) : text(_strdup(data)), time_posted(time(0)) {}
+	Status(const char* data) : text(_strdup(data)), time_posted(time(0)) {}
 	Status(const Status& s)
 	{
 		time_posted = s.time_posted;
-		text = _strdup(s.text);
+		if (this != &s)
+			text = _strdup(s.text);
 	}
 
 	
@@ -44,9 +45,20 @@ public:
 
 	void show() const
 	{
-		cout << text << " posted on date: " << ctime(&time_posted) << endl;
+		cout << text << endl<<"posted on date: " << ctime(&time_posted) << endl;
 	}
-
+	
+	Status& operator=(const Status& newStatus)
+	{
+		if (this != &newStatus)
+		{
+			delete[] text;
+			text = strdup(newStatus.getText());
+			time_posted = time(0);
+		}
+		return *this;
+	}
+	
 
 	~Status() { delete text; }
 

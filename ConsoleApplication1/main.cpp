@@ -1,10 +1,5 @@
 #include <iostream>
-#include "Status.h"
-#include"Date.h"
-#include "BoardMessage.h"
-#include "Friend.h"
-#include "FanPage.h"
-#include "Facebook.h"
+#include "GlobalFun.h"
 using namespace std;
 
 Status* myRealloc(Status* arr, int size, int newSize);
@@ -15,9 +10,13 @@ FanPage** myRealloc(FanPage** arr, int size, int newSize);
 
 int main() {
 	
-	Facebook* network = new Facebook;
+	Facebook network;
+	network.initial();
+	network.showAllFriends();
+	network.showAllFanPages();
 	Friend f;
-	network->start(f);
+	network.start(f);
+	network.showAllFriends();
 }
 
 Status* myRealloc(Status* arr, int size, int newSize) {

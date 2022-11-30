@@ -12,7 +12,7 @@ class FanPage;
 
 class Friend {
 private:
-	char* name;
+	const char* name;
 	Date date;
 	Friend** friends;
 	int friendsSize;
@@ -22,18 +22,24 @@ private:
 
 public:
 	Friend() : name(nullptr), friends(nullptr), friendsSize(0), pages(nullptr), pagesSize(0) {}
-	Friend(char* Name, int day, int month, int year)
-		: name(Name), date(day, month, year), friends(nullptr), friendsSize(0), pages(nullptr), pagesSize(0) {}
+	Friend(const char* Name, int day, int month, int year)
+		: name(strdup(Name)), date(day, month, year), friends(nullptr), friendsSize(0), pages(nullptr), pagesSize(0) {}
 
-	char* getFriendName() { return name; }
+	bool isFanPageAndFriendsConnected(FanPage& newFanPage);
+	bool isFriendsConnected(Friend& newFriend);
+	const char* getFriendName() { return name; }
 	void addFriend(Friend& newFriend);
 	void removeFriend(int ind);
 	void addFanPage(FanPage& newFanPage);
 	void removeFanPage(int ind);
 	void show();
 	void show10Status();
+	void showMboard();
 	void showFanPagesNames();
-	void addStatus(char* status) { Mboard.addStatus(status); }
+	void addStatus(const char* status) { Mboard.addStatus(status); }
+	void showMyFriends10RecentStatuses();
+	void showAllFriends();
+	
 	~Friend();
 };
 #endif

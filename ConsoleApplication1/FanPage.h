@@ -13,24 +13,25 @@ class Friend;
 class FanPage
 {
 private:
-	char* name;
+	const char* name;
 	BoardMessage board;
 	Friend** fans;
 	int fansSize;
 
 public:
 	FanPage() : name(nullptr), fans(nullptr), fansSize(0) {}
-	FanPage(char* Name) :name(Name), fans(nullptr), fansSize(0) {}
+	FanPage(const char* Name) :name(Name), fans(nullptr), fansSize(0) {}
 
 
 
-	char* getName();
+	const char* getName();
 	BoardMessage getMessageBoard();
 	Friend** getFriends(int& size);
 	void addFriend(Friend& newFriend);
 	void removeFriend(int ind);
 	void showFans();
 	void addStatus(char* status) { board.addStatus(status); }
+	void showAllStatuses();
 
 	~FanPage()
 	{
