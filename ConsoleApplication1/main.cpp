@@ -7,7 +7,7 @@ char* myrealloc(char* str, int size, int newSize);
 Friend** myRealloc(Friend** arr, int size, int newSize);
 FanPage** myRealloc(FanPage** arr, int size, int newSize);
 //amit
-
+//love
 int main() {
 	
 	Facebook network;
