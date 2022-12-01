@@ -21,6 +21,15 @@
     <ClCompile Include="BoardMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Friend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FanPage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Facebook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h">
@@ -30,6 +39,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BoardMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Friend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FanPage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalFun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Facebook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
